@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Greeting App</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        form {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            display: {% if user_name %}none{% else %}block{% endif %};
+            background-color: rgba(0, 0, 0, 0.8); /* Dark background for the form */
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff; /* Text color for the greeting */
+            background-color: rgba(0, 0, 0, 0.75); /* Dark background for the greeting */
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="post">
+            <label for="user_name" style="color: #fff;">Enter your name:</label>
+            <input type="text" id="user_name" name="user_name" required>
+            <button type="submit">Submit</button>
+        </form>
+        {% if greeting and user_name %}
+            <img src="{{ url_for('static', filename='img/' + image_filename) }}" alt="Greeting Image">
+            <h1>{{ greeting }}, {{ user_name }}!</h1>
+        {% endif %}
+    </div>
+</body>
+</html>
